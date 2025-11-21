@@ -1,121 +1,137 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+// --- Liste des utilisateurs ---
+const users = [
+  { pseudo: "Lilian B", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 10, month: 10, hour:0, minute:0, second:0, year:2002 } },
+  { pseudo: "MickaeL C", avatar: "https://i.pinimg.com/736x/91/3b/71/913b71d1adb5af6ba8cc951600baec3e.jpg", birthday: { day: 9, month: 11, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Tracy G", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 20, month: 0, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Even C", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 12, month: 1, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Jean L", avatar: "https://i.pinimg.com/736x/9e/1c/55/9e1c556dbc685e27c61f3f1c1be66b55.jpg", birthday: { day: 20, month: 1, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Pierrick M", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 4, month: 2, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Nicolas D", avatar: "https://i.pinimg.com/736x/9e/1c/55/9e1c556dbc685e27c61f3f1c1be66b55.jpg", birthday: { day: 9, month: 2, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Zoahoui Z", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 16, month: 2, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Frédéric N", avatar: "https://i.pinimg.com/736x/9e/1c/55/9e1c556dbc685e27c61f3f1c1be66b55.jpg", birthday: { day: 29, month: 3, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Nadejki C", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 28, month: 5, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "David D", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 1, month: 6, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Christophe DB", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 3, month: 6, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Abdelhak H", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 9, month: 6, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Thomas C", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 18, month: 7, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Mathieu A", avatar: "https://i.pinimg.com/736x/9e/1c/55/9e1c556dbc685e27c61f3f1c1be66b55.jpg", birthday: { day: 25, month: 8, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Clément S", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 13, month: 10, hour:0, minute:0, second:0, year:null } },
+];
 
-* { margin:0; padding:0; box-sizing:border-box; }
-
-body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-  color: #fff;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+// --- Confettis ---
+const confettiCount = 300;
+for(let i=0;i<confettiCount;i++){
+  const div = document.createElement('div');
+  div.className = 'confetti';
+  div.style.left = Math.random()*100+'vw';
+  div.style.backgroundColor = ['#FFD700','#FF69B4','#00FFFF','#FF4500'][Math.floor(Math.random()*4)];
+  div.style.animationDuration = (3 + Math.random()*5)+'s';
+  div.style.setProperty("--round", Math.random() > 0.5 ? 1 : 0);
+  document.body.appendChild(div);
 }
 
-@keyframes gradient { 
-  0%{background-position:0% 50%} 
-  50%{background-position:100% 50%} 
-  100%{background-position:0% 50%} 
-}
+// --- Temps avant anniversaire ---
+function timeUntilBirthday(birthday){
+  const now = new Date();
+  const parisNow = new Date(now.toLocaleString("en-US",{timeZone:"Europe/Paris"}));
+  let nextBirthday = new Date(parisNow.getFullYear(), birthday.month, birthday.day, birthday.hour||0, birthday.minute||0, birthday.second||0);
 
-#users-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
-}
-
-.user-container {
-  text-align: center;
-  background: rgba(0,0,0,0.35);
-  padding: 30px 20px;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-  min-width: 200px;
-  max-width: 90vw;
-  flex: 0 0 auto;
-  position: relative;
-  transition: transform 0.3s;
-}
-
-.user-container h1 {
-  font-size: 1.8em;
-  margin: 10px 0;
-  word-break: break-word;
-  text-align: center;
-}
-
-.user-container h2 { white-space: nowrap; }
-
-.avatar {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 6px solid #7289da;
-  box-shadow: 0 0 30px rgba(114,137,218,0.7);
-  margin-bottom: 20px;
-}
-
-.status {
-  margin: 15px 0;
-  padding: 10px 20px;
-  border-radius: 50px;
-  font-weight: 800;
-  font-size: 1.2em;
-  display: inline-block;
-  min-width: 180px;
-}
-.online { background: #43b581; box-shadow: 0 0 20px #43b581; }
-.dnd { background: #f04747; box-shadow: 0 0 20px #f04747; }
-.idle { background: #faa61a; box-shadow: 0 0 20px #faa61a; }
-.offline { background: #747f8d; }
-
-.birthday-countdown {
-  margin-top: 15px;
-  font-size: 1.2em;
-  font-weight: 600;
-  color: #ffd700;
-}
-
-.confetti {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  background-color: gold;
-  top: -10px;
-  animation: fall 5s linear infinite;
-  border-radius: 50%;
-  opacity: 0.8;
-  z-index: -1; 
-}
-
-@keyframes fall {
-  0% { transform: translateY(0) rotate(0deg); }
-  100% { transform: translateY(110vh) rotate(360deg); }
-}
-
-/* Glow animation pour l'anniversaire */
-.user-container.birthday {
-  animation: birthdayGlow 1.5s infinite alternate;
-  box-shadow: 0 0 20px 5px gold, 0 0 30px 10px #ff69b4, 0 0 40px 15px #00ffff;
-  border: 3px solid gold;
-}
-
-@keyframes birthdayGlow {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 10px 5px gold, 0 0 15px 10px #ff69b4, 0 0 20px 15px #00ffff;
+  if(parisNow.getDate() === birthday.day && parisNow.getMonth() === birthday.month){
+    return 0;
   }
-  50% {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px 10px gold, 0 0 30px 15px #ff69b4, 0 0 40px 20px #00ffff;
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 10px 5px gold, 0 0 15px 10px #ff69b4, 0 0 20px 15px #00ffff;
-  }
+  if(parisNow > nextBirthday) nextBirthday.setFullYear(nextBirthday.getFullYear()+1);
+  return nextBirthday - parisNow;
 }
+
+// --- Trier ---
+users.sort((a,b)=>timeUntilBirthday(a.birthday)-timeUntilBirthday(b.birthday));
+
+// --- Génération HTML ---
+const container = document.getElementById("users-container");
+
+users.forEach((user, index) => {
+  const div = document.createElement("div");
+  div.className = "user-container";
+
+  const now = new Date();
+  const parisNow = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Paris" }));
+  const b = user.birthday;
+
+  // 🔹 Date complète sous le pseudo (jour + mois + année ou X)
+  const monthNames = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+  const birthDateHtml = `<div class="birth-date" style="font-size:0.9em; margin-bottom:5px;">
+    ${b.day} ${monthNames[b.month] || ''} ${b.year || 'X'}
+  </div>`;
+
+  // 🔹 Texte âge si connu
+  let ageTextHtml = '';
+  if (b.year) {
+    let ageBefore = parisNow.getFullYear() - b.year;
+    if (parisNow.getMonth() > b.month || (parisNow.getMonth() === b.month && parisNow.getDate() < b.day)) ageBefore--;
+    let ageAfter = ageBefore + 1;
+    ageTextHtml = `<p class="age">${ageBefore} ans -> ${ageAfter} ans</p>`;
+  } else {
+    ageTextHtml = `<p class="age">X ans -> X ans</p>`;
+  }
+
+  div.innerHTML = `
+    <img id="avatar${index}" class="avatar" src="${user.avatar}" alt="Avatar"/>
+    <h1 id="username${index}">${user.pseudo}</h1>
+    ${birthDateHtml}
+    ${ageTextHtml}
+    <div id="status-indicator${index}" class="status offline" style="visibility:hidden;">
+      <span id="status-text${index}">&nbsp;</span>
+    </div>
+    <h2>Prochain anniversaire 🎉</h2>
+    <div id="birthday-countdown${index}" class="birthday-countdown">0 jours 0 h 0 min 0 s</div>
+  `;
+  container.appendChild(div);
+});
+
+// --- Mise à jour ---
+function updateCountdowns(){
+  const now=new Date();
+  const parisNow=new Date(now.toLocaleString("en-US",{timeZone:"Europe/Paris"}));
+
+  users.forEach((user,index)=>{
+    const b = user.birthday;
+    const countdown = document.getElementById(`birthday-countdown${index}`);
+    const ageText = document.getElementById(`username${index}`).nextElementSibling.nextElementSibling; // sauter birth-date
+    const h2 = countdown.previousElementSibling;
+    const userBox = document.getElementById(`avatar${index}`).parentElement;
+
+    if(parisNow.getDate() === b.day && parisNow.getMonth() === b.month){
+      if(h2) h2.style.visibility='hidden';
+      if(countdown) countdown.textContent="Joyeux anniversaire 🎉";
+      if(ageText){
+        if(b.year){
+            ageText.textContent = `Fêtera son ${parisNow.getFullYear()-b.year+1}ème anniversaire 🎉`;
+        } else {
+            ageText.textContent = `Fêtera son Xème anniversaire 🎉`;
+        }
+      }
+
+      // Glow et confettis
+      userBox.classList.add('birthday');
+
+      return;
+    } else {
+      userBox.classList.remove('birthday');
+    }
+
+    // Compte à rebours normal
+    let nextBirthday=new Date(parisNow.getFullYear(),b.month,b.day,0,0,0);
+    if(parisNow>nextBirthday) nextBirthday.setFullYear(nextBirthday.getFullYear()+1);
+    const diff=nextBirthday-parisNow;
+    const totalSeconds=Math.floor(diff/1000);
+    const days=Math.floor(totalSeconds/86400);
+    const hours=Math.floor(totalSeconds/3600)%24;
+    const minutes=Math.floor(totalSeconds/60)%60;
+    const seconds=totalSeconds%60;
+
+    if(countdown) countdown.textContent=`${days} jours ${hours} h ${minutes} min ${seconds} s`;
+  });
+}
+
+updateCountdowns();
+setInterval(updateCountdowns,1000);
