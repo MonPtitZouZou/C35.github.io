@@ -1,10 +1,21 @@
 // --- Liste des utilisateurs ---
 const users = [
-  { pseudo: "MonPtitZouZou", avatar: "https://cdn.discordapp.com/avatars/763055060678213652/9457b7812017bee62a8edd6cce1d9034.webp?size=256", birthday: { day: 10, month: 10, hour:0, minute:0, second:0, year:2002 } },
-  { pseudo: "MecKaeL", avatar: "https://cdn.discordapp.com/avatars/644934592901414932/355a8d8592a487ca18e7e142c3ef8746.webp", birthday: { day: 25, month: 7, hour:0, minute:0, second:0, year:2004 } },
-  { pseudo: "Printillie", avatar: "https://cdn.discordapp.com/avatars/689781399661838347/69c0bb311a7baab4f82cd260b8ebab3b.webp", birthday: { day: 21, month: 2, hour:0, minute:0, second:0, year:2005 } },
-  { pseudo: "Anaïs", avatar: "https://cdn.discordapp.com/avatars/459373865932685324/fd079e443979b0979e03cf0b44ab40e1.webp", birthday: { day: 31, month: 11, hour:0, minute:0, second:0, year:2005 } },
-  { pseudo: "Marie", avatar: "https://cdn.discordapp.com/avatars/760428505149997056/61e4defc2121796de1d11886e1b41947.webp", birthday: { day: 22, month: 9, hour:0, minute:0, second:0, year:2005 } },
+  { pseudo: "Lilian B", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 10, month: 10, hour:0, minute:0, second:0, year:2002 } },
+  { pseudo: "MickaeL C", avatar: "https://i.pinimg.com/736x/91/3b/71/913b71d1adb5af6ba8cc951600baec3e.jpg", birthday: { day: 9, month: 11, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Tracy G", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 20, month: 0, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Even C", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 12, month: 1, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Jean L", avatar: "https://i.pinimg.com/736x/9e/1c/55/9e1c556dbc685e27c61f3f1c1be66b55.jpg", birthday: { day: 20, month: 1, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Pierrick M", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 4, month: 2, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Nicolas D", avatar: "https://i.pinimg.com/736x/9e/1c/55/9e1c556dbc685e27c61f3f1c1be66b55.jpg", birthday: { day: 9, month: 2, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Zoahoui Z", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 16, month: 2, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Frédéric N", avatar: "https://i.pinimg.com/736x/9e/1c/55/9e1c556dbc685e27c61f3f1c1be66b55.jpg", birthday: { day: 29, month: 3, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Nadejki C", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 28, month: 5, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "David D", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 1, month: 6, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Christophe DB", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 3, month: 6, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Abdelhak H", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 9, month: 6, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Thomas C", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 18, month: 7, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Mathieu A", avatar: "https://i.pinimg.com/736x/9e/1c/55/9e1c556dbc685e27c61f3f1c1be66b55.jpg", birthday: { day: 25, month: 8, hour:0, minute:0, second:0, year:null } },
+  { pseudo: "Clément S", avatar: "https://i.pinimg.com/736x/cf/e6/da/cfe6da4317a5a131c8d13d15785774c1.jpg", birthday: { day: 13, month: 10, hour:0, minute:0, second:0, year:null } },
 ];
 
 // --- Confettis ---
@@ -38,22 +49,36 @@ users.sort((a,b)=>timeUntilBirthday(a.birthday)-timeUntilBirthday(b.birthday));
 // --- Génération HTML ---
 const container = document.getElementById("users-container");
 
-users.forEach((user,index)=>{
+users.forEach((user, index) => {
   const div = document.createElement("div");
-  div.className="user-container";
+  div.className = "user-container";
 
-  const now=new Date();
-  const parisNow=new Date(now.toLocaleString("en-US",{timeZone:"Europe/Paris"}));
+  const now = new Date();
+  const parisNow = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Paris" }));
   const b = user.birthday;
 
-  let ageBefore = parisNow.getFullYear()-b.year;
-  if(parisNow.getMonth() > b.month || (parisNow.getMonth() === b.month && parisNow.getDate() < b.day)) ageBefore--;
-  let ageAfter = ageBefore+1;
+  // 🔹 Date complète sous le pseudo (jour + mois + année ou X)
+  const monthNames = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+  const birthDateHtml = `<div class="birth-date" style="font-size:0.9em; margin-bottom:5px;">
+    ${b.day} ${monthNames[b.month] || ''} ${b.year || 'X'}
+  </div>`;
 
-  div.innerHTML=`
+  // 🔹 Texte âge si connu
+  let ageTextHtml = '';
+  if (b.year) {
+    let ageBefore = parisNow.getFullYear() - b.year;
+    if (parisNow.getMonth() > b.month || (parisNow.getMonth() === b.month && parisNow.getDate() < b.day)) ageBefore--;
+    let ageAfter = ageBefore + 1;
+    ageTextHtml = `<p class="age">${ageBefore} ans -> ${ageAfter} ans</p>`;
+  } else {
+    ageTextHtml = `<p class="age">X ans -> X ans</p>`;
+  }
+
+  div.innerHTML = `
     <img id="avatar${index}" class="avatar" src="${user.avatar}" alt="Avatar"/>
     <h1 id="username${index}">${user.pseudo}</h1>
-    <p class="age">${ageBefore} ans -> ${ageAfter} ans</p>
+    ${birthDateHtml}
+    ${ageTextHtml}
     <div id="status-indicator${index}" class="status offline" style="visibility:hidden;">
       <span id="status-text${index}">&nbsp;</span>
     </div>
@@ -71,14 +96,20 @@ function updateCountdowns(){
   users.forEach((user,index)=>{
     const b = user.birthday;
     const countdown = document.getElementById(`birthday-countdown${index}`);
-    const ageText = document.getElementById(`username${index}`).nextElementSibling;
+    const ageText = document.getElementById(`username${index}`).nextElementSibling.nextElementSibling; // sauter birth-date
     const h2 = countdown.previousElementSibling;
     const userBox = document.getElementById(`avatar${index}`).parentElement;
 
     if(parisNow.getDate() === b.day && parisNow.getMonth() === b.month){
       if(h2) h2.style.visibility='hidden';
       if(countdown) countdown.textContent="Joyeux anniversaire 🎉";
-      if(ageText) ageText.textContent=`Fête son ${parisNow.getFullYear()-b.year+1}ème anniversaire`;
+      if(ageText){
+        if(b.year){
+            ageText.textContent = `Fêtera son ${parisNow.getFullYear()-b.year+1}ème anniversaire 🎉`;
+        } else {
+            ageText.textContent = `Fêtera son Xème anniversaire 🎉`;
+        }
+      }
 
       // Glow et confettis
       userBox.classList.add('birthday');
